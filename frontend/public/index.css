@@ -2,7 +2,7 @@
 .root-container {
     padding: 20px;
     margin: 20px auto;
-    max-width: 1300px; /* Giới hạn độ rộng tối đa để căn giữa */
+    max-width: 1350px; /* Giới hạn độ rộng tối đa để căn giữa */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ để tạo hiệu ứng nổi */
     border-radius: 8px; /* Bo tròn góc */
     background-color: #f9f9f9; /* Màu nền nhẹ */
