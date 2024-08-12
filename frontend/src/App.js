@@ -9,7 +9,9 @@ import ManageRoom from './components/admin/ManageRoom';
 import ManageBooking from './components/admin/ManageBooking';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-
+import RegisterForm from './pages/RegisterForm';
+import LoginForm from './pages/LoginForm';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
@@ -20,8 +22,8 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/room/:id' element={<RoomDetail />} />
         <Route path="/booking" element={<Booking />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/register" element={<Register />} /> */}
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
 
         {/* Routes dành cho quản trị viên */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

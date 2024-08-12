@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button } from 'react-bootstrap';
+import { fetchRooms } from '../../services/api';
+
 
 const initialRooms = [
     { id: 1, roomNumber: 101, type: 'Deluxe', price: 100, status: 'Available' },
@@ -10,6 +12,8 @@ const initialRooms = [
 
 const ManageRoom = () => {
     const [rooms, setRooms] = useState(initialRooms);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [editingRoom, setEditingRoom] = useState(null);
     const [editedRoom, setEditedRoom] = useState({});
     const [isAdding, setIsAdding] = useState(false);
@@ -21,6 +25,21 @@ const ManageRoom = () => {
     });
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [roomToDelete, setRoomToDelete] = useState(null);
+
+    useEffect(() => {
+        const getRooms = async () => {
+            try {
+                const data = await fetchRooms();
+                setRooms(data);
+            } catch (error) {
+                setError(error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        getRooms();
+    }, []);
 
     const handleEditClick = (room) => {
         setEditingRoom(room.id);
