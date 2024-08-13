@@ -8,8 +8,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoomUpdateRequest {
 
-    Long roomTypeId;
+    String roomType;
     Double price;
-    String imageUrl;
+    String imagePath;
+
 
 }

@@ -18,3 +18,8 @@ jwt:
   validDuration: 9999
   refreshableDuration: 9999
 
+firebase:
+  bucket: "hotel-booking-73711.appspot.com"
+  userPath: "user/"
+  roomPath: "room/"
+

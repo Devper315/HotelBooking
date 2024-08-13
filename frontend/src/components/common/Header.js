@@ -22,8 +22,13 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Link to="/user/my-orders">Yêu cầu đặt phòng</Link>
+                <Link to="#">Khách hàng</Link>
+                  <ul className="dropdown-menu">
+                  <li><Link to="/user/my-orders">Yêu cầu đặt phòng</Link></li>
+                  <li><Link to="/user/see-rooms">Xem phòng</Link></li>
+                  </ul>
                 </>
+                
               )}
             </li>
           </ul>

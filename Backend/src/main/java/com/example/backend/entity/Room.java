@@ -25,7 +25,6 @@ public class Room {
     Double price;
 
     @Enumerated(EnumType.STRING)
-    RoomStatus status; // Available, Booked
-
-    String imageUrl; // URL hoặc đường dẫn đến ảnh của phòng
+    RoomStatus status;
+    String imagePath;
 }

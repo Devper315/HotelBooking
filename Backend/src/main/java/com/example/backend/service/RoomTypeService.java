@@ -22,4 +22,8 @@ public class RoomTypeService {
     public RoomType getById(Long id){
         return roomTypeRepo.findById(id).orElse(null);
     }
+
+    public RoomType getByName(String name){
+        return roomTypeRepo.findByName(name);
+    }
 }
