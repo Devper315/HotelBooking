@@ -1,8 +1,6 @@
 package com.example.backend.dto.request;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
@@ -10,10 +8,12 @@ import java.util.Set;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
     String fullName;
-    String password;
+    String avatarPath;
     LocalDate dateOfBirth;
     Set<Long> roleIds;
 }

@@ -48,15 +48,7 @@ public class ManageUserController {
                 .build();
     }
 
-    @PutMapping
-    public ApiResponse<UserResponse> updateUser(@RequestBody UserUpdateRequest request,
-                                                @RequestParam Long id){
-        User user = userService.updateUser(request, id);
-        UserResponse userResponse = userMapper.toUserResponse(user);
-        return ApiResponse.<UserResponse>builder()
-                .result(userResponse)
-                .build();
-    }
+
 
     @DeleteMapping
     public String deleteUser(@RequestParam Long id){

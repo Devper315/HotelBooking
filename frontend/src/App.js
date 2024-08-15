@@ -2,19 +2,17 @@
 import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Home from './components/customer/Home';
-import RoomDetail from './components/customer/RoomDetail';
-import Booking from './components/customer/Booking';
 import AdminDashboard from './components/admin/AdminDashboard';
 import ManageRoom from './components/admin/ManageRoom/ManageRoom';
 import ManageBooking from './components/admin/ManageBooking';
 import Header from './components/common/Header';
+import RegisterForm from './components/common/RegisterForm';
+import LoginForm from './components/common/LoginForm';
 import Footer from './components/common/Footer';
-import RegisterForm from './pages/RegisterForm';
-import LoginForm from './pages/LoginForm';
-import { AuthProvider } from './context/AuthContext';
 import RoomList from './components/customer/RoomList';
-import UploadForm from './components/admin/UploadForm';
-import ImageDisplay from './components/customer/ImageDisplay';
+import UserProfile from './components/common/UserProfile';
+import ChangePassword from './components/common/ChangePassword';
+import BookingList from './components/customer/ManageBooking/BookingList';
 
 function App() {
   return (
@@ -22,21 +20,19 @@ function App() {
       <Header />
       <Routes>
 
-        <Route path='/home' element={<Home />} />
-        <Route path='/room/:id' element={<RoomDetail />} />
-        <Route path="/booking" element={<Booking />} />
+        <Route path='/' element={<RoomList />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/profile/my-info" element={<UserProfile />} />
+        <Route path="/profile/change-password" element={<ChangePassword />} />
 
         {/* Routes dành cho quản trị viên */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/manage-room" element={<ManageRoom />} />
         <Route path="/admin/manage-booking" element={<ManageBooking />} />
-        <Route path="/admin/upload-form" element={<UploadForm />} />
-        <Route path="/admin/image-display" element={<ImageDisplay />} />
         {/* Trang dành cho khách */}
-        <Route path="/user/see-rooms" element={<RoomList />} />
-        
+        <Route path="/customer/see-rooms" element={<RoomList />} />
+        <Route path="/customer/my-orders" element={<BookingList />} />
       </Routes>
       <Footer/>
     </div>

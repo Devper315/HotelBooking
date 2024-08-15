@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoomCreateRequest {
     Integer roomNumber;
-    Long roomTypeId;
+    String roomType;
     Double price;
     String imageUrl;
 

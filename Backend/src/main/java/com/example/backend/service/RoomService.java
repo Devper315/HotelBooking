@@ -33,7 +33,7 @@ public class RoomService {
 
     public Room createRoom(RoomCreateRequest request){
         Room room = roomMapper.toRoom(request);
-        RoomType roomType = roomTypeService.getById(request.getRoomTypeId());
+        RoomType roomType = roomTypeService.getByName(request.getRoomType());
         room.setType(roomType);
         room.setStatus(RoomStatus.AVAILABLE);
         return roomRepo.save(room);
@@ -41,9 +41,12 @@ public class RoomService {
 
     public Room updateRoom(RoomUpdateRequest request, Long id){
         Room room = roomRepo.findById(id).get();
-        if (request.getPrice() != null) room.setPrice(request.getPrice());
-        if (request.getRoomType() != null) room.setType(roomTypeService.getByName(request.getRoomType()));
-        if (request.getImagePath() != null) room.setImagePath(request.getImagePath());
+        if (request.getImagePath() != null)
+            room.setImagePath(request.getImagePath());
+        else{
+            room.setPrice(request.getPrice());
+            room.setType(roomTypeService.getByName(request.getRoomType()));
+        }
         return roomRepo.save(room);
     }
 

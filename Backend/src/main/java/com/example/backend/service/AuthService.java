@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.dto.request.IntrospectRequest;
 import com.example.backend.dto.request.LoginRequest;
+import com.example.backend.dto.request.UserCreateRequest;
 import com.example.backend.dto.response.IntrospectResponse;
 import com.example.backend.dto.response.LoginResponse;
 import com.example.backend.entity.User;
@@ -45,6 +46,7 @@ public class AuthService {
     @NonFinal
     @Value("${jwt.refreshableDuration}")
     protected long REFRESHABLE_DURATION;
+
 
     public LoginResponse authenticate(LoginRequest request) {
         User user = userRepo.findByEmail(request.getEmail().toLowerCase()).get();
@@ -94,6 +96,7 @@ public class AuthService {
         Map<String, Object> customClaims = new HashMap<>();
         customClaims.put("name", user.getFullName());
         customClaims.put("role", user.getRoles());
+        customClaims.put("id", user.getId());
         return customClaims;
     }
 

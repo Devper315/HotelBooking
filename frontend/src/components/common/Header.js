@@ -15,7 +15,7 @@ const Header = () => {
                 <>
                   <Link to="#">Quản lý</Link>
                   <ul className="dropdown-menu">
-                    <li><Link to="/admin/dashboard">Dashboard</Link></li>
+                    <li><Link to="/admin/dashboard">Tổng quan</Link></li>
                     <li><Link to="/admin/manage-room">Quản lý phòng</Link></li>
                     <li><Link to="/admin/manage-booking">Quản lý đặt phòng</Link></li>
                   </ul>
@@ -24,8 +24,8 @@ const Header = () => {
                 <>
                 <Link to="#">Khách hàng</Link>
                   <ul className="dropdown-menu">
-                  <li><Link to="/user/my-orders">Yêu cầu đặt phòng</Link></li>
-                  <li><Link to="/user/see-rooms">Xem phòng</Link></li>
+                  <li><Link to="/customer/my-orders">Đơn đặt phòng của tôi</Link></li>
+                  <li><Link to="/customer/see-rooms">Xem phòng</Link></li>
                   </ul>
                 </>
                 
@@ -37,8 +37,8 @@ const Header = () => {
               <div className="user-menu">
                 <span className="user-name">Xin chào, {userInfo.fullName}</span>
                 <ul className="user-dropdown">
-                  <li><Link to="/user/profile">Thông tin cá nhân</Link></li>
-                  <li><Link to="/user/change-password">Đổi mật khẩu</Link></li>
+                  <li><Link to="/profile/my-info">Thông tin cá nhân</Link></li>
+                  <li><Link to="/profile/change-password">Đổi mật khẩu</Link></li>
                 </ul>
                 <button onClick={logout}>Đăng xuất</button>
               </div>) : (

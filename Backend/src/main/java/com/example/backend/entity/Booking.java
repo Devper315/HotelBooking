@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -18,12 +19,17 @@ public class Booking {
     Long id;
 
     @ManyToOne
-    User user;
+    User createUser;
 
     @ManyToOne
     Room room;
 
-    LocalDate bookingDate;
+    String customerName;
+
+    @Enumerated(EnumType.STRING)
+    BookingStatus status;
+
+    String bookingDate;
     LocalDate checkInDate;
     LocalDate checkOutDate;
 }

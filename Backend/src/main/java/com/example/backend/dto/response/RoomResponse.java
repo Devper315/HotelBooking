@@ -9,15 +9,10 @@ import lombok.Data;
 @Builder
 public class RoomResponse {
     Long id;
-
     Integer roomNumber;
-
-    RoomType type; // Deluxe, Standard, Suite
-
+    RoomType type;
     Double price;
-
-    RoomStatus status; // Available, Booked
-
+    RoomStatus status;
     String imageUrl;
 
 }

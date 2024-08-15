@@ -16,7 +16,7 @@ public class UserResponse {
     Long id;
     String fullName;
     String email;
-    String password;
+    String avatarPath;
     LocalDate dateOfBirth;
     Set<Role> roles;
 }

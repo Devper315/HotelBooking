@@ -17,6 +17,7 @@ import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -28,16 +29,11 @@ public class ManageRoomController {
     @NonFinal
     @Value("${firebase.roomPath}")
     String roomImagePath;
-
-    @NonFinal
-    @Value("${firebase.userPath}")
-    String userImagePath;
-
     RoomService roomService;
     RoomMapper roomMapper;
 
     @GetMapping("/all")
-    public ApiResponse<List<Room>> getAllRoom(){
+    public ApiResponse<List<Room>> getAllRoom() {
         List<Room> roomList = roomService.getAll();
         return ApiResponse.<List<Room>>builder()
                 .result(roomList)
@@ -45,7 +41,7 @@ public class ManageRoomController {
     }
 
     @GetMapping
-    public ApiResponse<Room> getRoomById(@RequestParam Long id){
+    public ApiResponse<Room> getRoomById(@RequestParam Long id) {
         Room room = roomService.getById(id);
         return ApiResponse.<Room>builder()
                 .result(room)
@@ -53,16 +49,17 @@ public class ManageRoomController {
     }
 
     @PostMapping
-    public ApiResponse<Room> createRoom(@RequestBody RoomCreateRequest request){
+    public ApiResponse<RoomResponse> createRoom(@RequestBody RoomCreateRequest request) {
         Room room = roomService.createRoom(request);
-        return ApiResponse.<Room>builder()
-                .result(room)
+        RoomResponse response = roomMapper.toRoomResponse(room);
+        return ApiResponse.<RoomResponse>builder()
+                .result(response)
                 .build();
     }
 
     @PutMapping
     public ApiResponse<RoomResponse> updateRoom(@RequestBody RoomUpdateRequest request,
-                                                @RequestParam Long id){
+                                                @RequestParam Long id) {
         Room room = roomService.updateRoom(request, id);
         RoomResponse response = roomMapper.toRoomResponse(room);
         return ApiResponse.<RoomResponse>builder()
@@ -71,7 +68,7 @@ public class ManageRoomController {
     }
 
     @DeleteMapping
-    public String deleteRoomById(@RequestParam Long id){
+    public String deleteRoomById(@RequestParam Long id) {
         roomService.deleteById(id);
         return "Room has been deleted";
     }
@@ -97,7 +94,6 @@ public class ManageRoomController {
                 .result(result)
                 .build();
     }
-
 
 
 }

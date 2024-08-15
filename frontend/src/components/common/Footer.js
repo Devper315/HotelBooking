@@ -6,30 +6,30 @@ const Footer = () => {
         <footer>
             <div className="footer-content">
                 <div className="footer-section about">
-                    <h1 className="logo-text"><span>Hotel</span>Booking</h1>
+                    <h1 className="logo-text">Đặt Phòng Khách Sạn</h1>
                     <p>
-                        Welcome to our hotel booking service. We strive to provide the best experience for our customers.
+                        Chào mừng đến với dịch vụ đặt phòng khách sạn của chúng tôi. Chúng tôi nỗ lực để mang đến trải nghiệm tốt nhất cho khách hàng.
                     </p>
                     <div className="contact">
-                        <span><i className="fas fa-phone"></i> &nbsp; 123-456-789</span>
-                        <span><i className="fas fa-envelope"></i> &nbsp; info@hotelbooking.com</span>
+                        <span><i className="fas fa-phone"></i> &nbsp;0377-114-536</span>
+                        <span><i className="fas fa-envelope"></i> &nbsp; Devper315@hotelbooking.com</span>
                     </div>
                 </div>
 
                 <div className="footer-section links">
-                    <h2>Quick Links</h2>
+                    <h2>Liên kết nhanh</h2>
                     <br />
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/booking">Booking</a></li>
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Register</a></li>
-                        <li><a href="/admin/dashboard">Admin Dashboard</a></li>
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/booking">Đặt phòng</a></li>
+                        <li><a href="/login">Đăng nhập</a></li>
+                        <li><a href="/register">Đăng ký</a></li>
+                        <li><a href="/admin/dashboard">Bảng điều khiển Admin</a></li>
                     </ul>
                 </div>
 
                 <div className="footer-section social">
-                    <h2>Follow us</h2>
+                    <h2>Theo dõi chúng tôi</h2>
                     <br />
                     <div className="social-links">
                         <a href="#"><i className="fab fa-facebook"></i></a>
@@ -41,7 +41,7 @@ const Footer = () => {
             </div>
 
             <div className="footer-bottom">
-                &copy; 2024 HotelBooking | Designed by You
+                &copy; 2024 Đặt Phòng Khách Sạn | Thiết kế bởi Phan Văn Thi
             </div>
         </footer>
     );
