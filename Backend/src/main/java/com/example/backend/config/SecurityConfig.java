@@ -28,21 +28,25 @@ public class SecurityConfig {
     String[] PUBLIC_POST_ENPOINTS = {"/auth/login", "/register"};
     String[] COMMON_ENDPOINTS = {"/profile"};
     CustomJWTDecoder jwtDecoder;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(request ->
                 request
-                .requestMatchers(HttpMethod.GET, "/user", "customer").hasRole("USER")
-                .requestMatchers(HttpMethod.GET, "/admin").hasRole("USER")
-                .requestMatchers(HttpMethod.GET, COMMON_ENDPOINTS).hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.POST, COMMON_ENDPOINTS).hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENPOINTS).permitAll()
-                .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENPOINTS).permitAll()
-                .anyRequest().authenticated());
+                        .requestMatchers(HttpMethod.GET, "/customer/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, COMMON_ENDPOINTS).hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, COMMON_ENDPOINTS).hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENPOINTS).permitAll()
+                        .anyRequest().authenticated());
         httpSecurity.oauth2ResourceServer(oath2 ->
                 oath2.jwt(jwtConfigurer ->
                         jwtConfigurer.decoder(jwtDecoder)
-                        .jwtAuthenticationConverter(jwtAuthenticationConverter())));
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())));
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         return httpSecurity.build();
     }
@@ -55,6 +59,7 @@ public class SecurityConfig {
         authConverter.setJwtGrantedAuthoritiesConverter(grantedConverter);
         return authConverter;
     }
+
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

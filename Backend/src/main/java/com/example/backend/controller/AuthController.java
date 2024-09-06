@@ -34,9 +34,6 @@ public class AuthController {
                 .result(result)
                 .build();
     }
-
-
-
     @PostMapping("/introspect")
     public ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request){
         IntrospectResponse result = authService.introspect(request);

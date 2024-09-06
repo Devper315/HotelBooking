@@ -6,6 +6,7 @@ import com.example.backend.entity.Room;
 import com.example.backend.entity.RoomStatus;
 import com.example.backend.entity.RoomType;
 import com.example.backend.mapper.RoomMapper;
+import com.example.backend.model.RoomStatistical;
 import com.example.backend.repository.RoomRepo;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class RoomService {
     RoomMapper roomMapper;
 
     public List<Room> getAll(){
-        return roomRepo.findAll();
+        return roomRepo.findAllSortById();
     }
 
     public Room getById(Long id){
@@ -45,12 +46,16 @@ public class RoomService {
             room.setImagePath(request.getImagePath());
         else{
             room.setPrice(request.getPrice());
-            room.setType(roomTypeService.getByName(request.getRoomType()));
+            room.setType(roomTypeService.getByName(request.getType()));
         }
         return roomRepo.save(room);
     }
 
     public void deleteById(Long id){
         roomRepo.deleteById(id);
+    }
+
+    public RoomStatistical getRoomStatistical(){
+        return roomRepo.getRoomStatistical();
     }
 }

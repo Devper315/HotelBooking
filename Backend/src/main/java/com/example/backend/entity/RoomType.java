@@ -15,7 +15,7 @@ public class RoomType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // e.g., Deluxe, Standard, Suite
+    private String name;
 
-    private String description; // Optional: mô tả loại phòng
+    private String description;
 }

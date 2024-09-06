@@ -12,6 +12,20 @@ spring:
     hibernate:
       ddl-auto: update 
     show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: phanvanthi315.1@gmail.com
+    password: ubwawlbchisuixdj
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    fromName: "Khách sạn 315"
+    booking:
+      subject: "Kết quả duyệt đơn đặt phòng"
 
 jwt:
   signerKey: "bj0hKxleZxWk8mHcrceJBce84L5qniIsLM3UcEw6NZWiyTXXN3zTVFoBRB0BScPz"
@@ -22,4 +36,7 @@ firebase:
   bucket: "hotel-booking-73711.appspot.com"
   userPath: "user/"
   roomPath: "room/"
+
+frontend:
+  url: "http://localhost:3000"
 

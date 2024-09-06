@@ -1,6 +1,9 @@
 package com.example.backend.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -10,19 +13,11 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Room {
+public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-    Integer roomNumber;
-
-    @ManyToOne
-    RoomType type; // Deluxe, Standard, Suite
-
-    Double price;
-
-    @Enumerated(EnumType.STRING)
-    RoomStatus status;
-    String imagePath;
+    String name;
+    String email;
+    String phone;
 }

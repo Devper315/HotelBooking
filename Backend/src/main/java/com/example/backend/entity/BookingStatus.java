@@ -1,7 +1,11 @@
 package com.example.backend.entity;
 
 public enum BookingStatus {
-    BOOKED,
+    DRAFT,
+    APPROVE,
+    REFUSE,
+    CANCEL,
     CHECKED_IN,
-    CHECKED_OUT
+    CHECKED_OUT,
+    DONE
 }

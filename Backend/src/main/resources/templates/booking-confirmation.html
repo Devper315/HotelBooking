@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thông báo duyệt đơn đặt phòng</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      padding: 10px;
+      background-color: #007bff;
+      color: #ffffff;
+      border-radius: 8px 8px 0 0;
+    }
+    .content {
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+    .content p {
+      margin: 10px 0;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #666666;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      color: #ffffff;
+      background-color: #007bff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h2>Xác nhận duyệt đơn đặt phòng</h2>
+  </div>
+  <div class="content" th:object="${booking}">
+    <p>Chào <strong th:text="*{customerName}"></strong>,</p>
+    <p>Chúng tôi rất vui thông báo rằng đơn đặt phòng của bạn tại khách sạn
+      <strong th:text="${hotel.name}"></strong>
+      đã được duyệt thành công.</p>
+    <p><strong>Chi tiết đơn đặt phòng:</strong></p>
+    <ul>
+      <li>Số phòng: <span th:text="*{room.roomNumber}"></span></li>
+      <li>Ngày nhận phòng: <span th:text="*{checkInDate}"></span></li>
+      <li>Ngày trả phòng: <span th:text="*{checkOutDate}"></span></li>
+    </ul>
+    <p>Nếu bạn có bất kỳ câu hỏi nào hoặc cần trợ giúp, vui lòng liên hệ với chúng tôi qua email này.</p>
+    <p>Cảm ơn bạn đã chọn khách sạn của chúng tôi. Chúng tôi rất mong được đón tiếp bạn!</p>
+    <a class="button" th:href="${bookingLink}">Xem chi tiết đơn đặt phòng</a>
+  </div>
+  <div class="footer">
+    <p>Khách sạn <span th:text="${hotel.name}"></span></p>
+    <p>Địa chỉ email: <span th:text="${hotel.email}"></span></p>
+    <p>Số điện thoại: <span th:text="${hotel.phone}"></span></p>
+  </div>
+</div>
+</body>
+</html>

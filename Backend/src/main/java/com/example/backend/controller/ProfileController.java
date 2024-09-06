@@ -33,7 +33,6 @@ import java.util.List;
 public class ProfileController {
 
     UserService userService;
-    RoomService roomService;
     UserMapper userMapper;
 
     @NonFinal
@@ -41,20 +40,17 @@ public class ProfileController {
     String userImagePath;
 
     @GetMapping("/my-info")
-    public ApiResponse<UserResponse> getUserInfo(Authentication auth) {
-        Long userId = userService.getCurrentUserId(auth);
-        User user = userService.getById(userId);
+    public ApiResponse<UserResponse> getUserInfo() {
+        User user = userService.getCurrentUser();
         UserResponse response = userMapper.toUserResponse(user);
         return ApiResponse.<UserResponse>builder()
                 .result(response)
                 .build();
     }
 
-
-
     @PutMapping
     public ApiResponse<UserResponse> updateUser(@RequestBody UserUpdateRequest request,
-                                                Authentication auth){
+                                                Authentication auth) {
         User user = userService.updateUser(request, auth);
         UserResponse userResponse = userMapper.toUserResponse(user);
         return ApiResponse.<UserResponse>builder()
@@ -79,7 +75,7 @@ public class ProfileController {
 
     @PostMapping("/change-password")
     public ApiResponse<String> changePassword(@RequestBody ChangePasswordRequest request,
-                                              Authentication auth){
+                                              Authentication auth) {
         String result = userService.changePassword(request, auth);
         return ApiResponse.<String>builder()
                 .result(result)

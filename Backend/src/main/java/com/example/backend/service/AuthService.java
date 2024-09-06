@@ -20,13 +20,11 @@ import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.text.ParseException;
 import java.time.Instant;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -49,9 +47,9 @@ public class AuthService {
 
 
     public LoginResponse authenticate(LoginRequest request) {
-        User user = userRepo.findByEmail(request.getEmail().toLowerCase()).get();
+        User user = userRepo.findByEmail(request.getEmail().toLowerCase());
         boolean result = passwordEncoder.matches(request.getPassword(), user.getPassword());
-        if (!result) throw new RuntimeException("Sai email hoặc password");
+        if (!result) throw new RuntimeException("Thông tin tài khoản hoặc mật khẩu không chính xác");
         String token = generateToken(user);
         return LoginResponse.builder()
                 .token(token)
@@ -80,6 +78,7 @@ public class AuthService {
                 .expirationTime(DateUtils.addSecondsToDate(new Date(), VALID_DURATION))
                 .jwtID(UUID.randomUUID().toString())
                 .claim("customClaim", buildCustomClaim(user))
+                .claim("scope", buildScope(user))
                 .build();
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
         JWSObject jwsObject = new JWSObject(header, payload);
@@ -110,5 +109,17 @@ public class AuthService {
             throw new RuntimeException("Token không hợp lệ");
         }
         return signedJWT;
+    }
+
+    private String buildScope(User user) {
+        StringJoiner joiner = new StringJoiner(" ");
+        if (!CollectionUtils.isEmpty(user.getRoles())) {
+            user.getRoles().forEach(role -> {
+                joiner.add("ROLE_" + role.getName());
+//				if (!role.getPermissionSet().isEmpty())
+//					role.getPermissionSet().forEach(permission -> joiner.add(permission.getName()));
+            });
+        }
+        return joiner.toString();
     }
 }

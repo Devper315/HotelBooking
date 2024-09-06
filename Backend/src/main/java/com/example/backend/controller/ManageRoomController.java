@@ -6,6 +6,7 @@ import com.example.backend.dto.response.ApiResponse;
 import com.example.backend.dto.response.RoomResponse;
 import com.example.backend.entity.Room;
 import com.example.backend.mapper.RoomMapper;
+import com.example.backend.model.RoomStatistical;
 import com.example.backend.service.RoomService;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
@@ -39,7 +40,6 @@ public class ManageRoomController {
                 .result(roomList)
                 .build();
     }
-
     @GetMapping
     public ApiResponse<Room> getRoomById(@RequestParam Long id) {
         Room room = roomService.getById(id);
@@ -95,5 +95,11 @@ public class ManageRoomController {
                 .build();
     }
 
+    @GetMapping("/statistical")
+    public ApiResponse<RoomStatistical> getRoomStatistical(){
+        return ApiResponse.<RoomStatistical>builder()
+                .result(roomService.getRoomStatistical())
+                .build();
+    }
 
 }
