@@ -1,0 +1,6 @@
+.room-card-img {
+    width: 100%;
+    height: 200px; /* Đặt chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh được cắt hoặc co giãn để lấp đầy toàn bộ không gian */
+    border-radius: 4px;
+}

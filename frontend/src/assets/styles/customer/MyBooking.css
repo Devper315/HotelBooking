@@ -1,0 +1,39 @@
+/* RoomList.css */
+.room-list-container {
+    padding: 20px;
+}
+
+.room-list-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.room-list {
+    max-width: 800px; /* Đặt chiều rộng tối đa của danh sách */
+    overflow-x: auto; /* Thêm thanh cuộn ngang nếu danh sách quá rộng */
+    margin: 0 auto; /* Canh giữa danh sách */
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+    min-width: 300px; /* Đảm bảo các item có chiều rộng tối thiểu */
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
+}
+
+.list-group-item .btn {
+    margin-left: 10px;
+}
+
+.modal-content {
+    padding: 20px;
+}

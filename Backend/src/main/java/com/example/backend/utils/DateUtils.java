@@ -12,10 +12,9 @@ public class DateUtils {
         return new Date(currentDate.toInstant().plus(Duration.ofSeconds(seconds)).toEpochMilli());
     }
 
-    public static String getCurrentDate(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return currentDateTime.format(formatter);
+    public static String reFormatDateTime(LocalDateTime dateTime){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy ");
+        return dateTime.format(formatter);
     }
 
 }

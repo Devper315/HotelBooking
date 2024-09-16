@@ -1,7 +1,5 @@
 server:
   port: 8080
-  servlet:
-    context-path: /api/hotel
 
 spring:
   datasource:
@@ -36,7 +34,8 @@ firebase:
   bucket: "hotel-booking-73711.appspot.com"
   userPath: "user/"
   roomPath: "room/"
+  hotelPath: "hotel/"
 
 frontend:
-  url: "http://localhost:3000"
+  url: "https://b31f-42-114-185-98.ngrok-free.app/"
 

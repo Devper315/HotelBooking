@@ -3,21 +3,20 @@ package com.example.backend.config;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -30,25 +29,38 @@ public class SecurityConfig {
     CustomJWTDecoder jwtDecoder;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(request ->
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(request ->
                 request
-                        .requestMatchers(HttpMethod.GET, "/customer/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/customer/**").hasRole("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/admin/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, COMMON_ENDPOINTS).hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, COMMON_ENDPOINTS).hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, COMMON_ENDPOINTS).hasAnyRole("CUSTOMER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, COMMON_ENDPOINTS).hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENPOINTS).permitAll()
                         .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENPOINTS).permitAll()
-                        .anyRequest().authenticated());
-        httpSecurity.oauth2ResourceServer(oath2 ->
+                        .anyRequest().permitAll());
+        http.oauth2ResourceServer(oath2 ->
                 oath2.jwt(jwtConfigurer ->
                         jwtConfigurer.decoder(jwtDecoder)
                                 .jwtAuthenticationConverter(jwtAuthenticationConverter())));
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        return httpSecurity.build();
+        http.csrf(AbstractHttpConfigurer::disable)
+            .cors(configurer -> configurer.configurationSource(corsConfigurationSource()));
+        return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
@@ -59,23 +71,5 @@ public class SecurityConfig {
         authConverter.setJwtGrantedAuthoritiesConverter(grantedConverter);
         return authConverter;
     }
-
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000/");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 
 }

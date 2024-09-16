@@ -1,12 +1,9 @@
 package com.example.backend.config;
 
-import com.example.backend.dto.request.IntrospectRequest;
-import com.example.backend.service.AuthService;
-import com.nimbusds.jose.JOSEException;
+import com.example.backend.service.auth.AuthService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -16,7 +13,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
-import java.text.ParseException;
 
 @Component
 @RequiredArgsConstructor

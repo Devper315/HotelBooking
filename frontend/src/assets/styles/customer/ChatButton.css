@@ -1,0 +1,36 @@
+
+
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.chat-button .tooltip {
+    visibility: hidden; /* Ẩn tooltip theo mặc định */
+    width: 150px; /* Chiều rộng của tooltip */
+    background-color: #333; /* Màu nền của tooltip */
+    color: #fff; 
+    text-align: center; /* Căn giữa chữ */
+    border-radius: 5px; /* Bo góc tooltip */
+    padding: 5px; /* Khoảng cách bên trong tooltip */
+    position: absolute; /* Đặt tooltip ở vị trí tuyệt đối */
+    bottom: 100%; /* Đặt tooltip lên trên nút */
+    left: 50%; /* Căn giữa tooltip theo chiều ngang */
+    margin-left: -80px; /* Căn giữa tooltip */
+    opacity: 0; /* Ẩn tooltip */
+    transition: opacity 0.3s; /* Hiệu ứng chuyển tiếp */
+    z-index: 1001; /* Đảm bảo tooltip nổi lên trên nút */
+}
+
+.chat-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.chat-button img {
+    width: 110px;
+    height: 110px;
+}

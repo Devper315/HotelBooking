@@ -1,8 +1,7 @@
 package com.example.backend.mapper;
 
-import com.example.backend.dto.request.RoomCreateRequest;
-import com.example.backend.dto.response.RoomResponse;
-import com.example.backend.entity.Room;
+import com.example.backend.dto.request.hotel.RoomCreateRequest;
+import com.example.backend.entity.hotel.Room;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -10,6 +9,4 @@ import org.mapstruct.Mapping;
 public interface RoomMapper {
     @Mapping(target = "type", ignore = true)
     Room toRoom(RoomCreateRequest request);
-
-    RoomResponse toRoomResponse(Room room);
 }

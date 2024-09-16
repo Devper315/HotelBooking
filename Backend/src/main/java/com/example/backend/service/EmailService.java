@@ -1,7 +1,7 @@
 package com.example.backend.service;
 
-import com.example.backend.entity.Booking;
-import com.example.backend.entity.Hotel;
+import com.example.backend.entity.hotel.Booking;
+import com.example.backend.entity.hotel.Hotel;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AccessLevel;
@@ -50,7 +50,7 @@ public class EmailService {
             Map<String, Object> variables = new HashMap<>();
             variables.put("booking", booking);
             variables.put("hotel", hotel);
-            variables.put("bookingLink", frontendUrl + "/my-booking?id=" + booking.getId());
+            variables.put("bookingLink", frontendUrl + "/customer/booking-detail?id=" + booking.getId());
             context.setVariables(variables);
             String htmlContent = templateEngine.process("booking-confirmation", context);
             helper.setFrom(FROM_EMAIL, FROM_NAME);

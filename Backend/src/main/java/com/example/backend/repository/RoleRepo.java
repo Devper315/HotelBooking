@@ -1,7 +1,6 @@
 package com.example.backend.repository;
 
-import com.example.backend.entity.Role;
-import com.example.backend.entity.Room;
+import com.example.backend.entity.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

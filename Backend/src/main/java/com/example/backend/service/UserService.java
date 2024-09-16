@@ -1,29 +1,26 @@
 package com.example.backend.service;
 
-import com.example.backend.dto.request.ChangePasswordRequest;
-import com.example.backend.dto.request.UserCreateRequest;
-import com.example.backend.dto.request.UserUpdateRequest;
-import com.example.backend.entity.Role;
-import com.example.backend.entity.User;
+import com.example.backend.dto.request.user.ChangePasswordRequest;
+import com.example.backend.dto.request.user.UserCreateRequest;
+import com.example.backend.dto.request.user.UserUpdateRequest;
+import com.example.backend.entity.user.Role;
+import com.example.backend.entity.user.User;
 import com.example.backend.exception.AppException;
 import com.example.backend.exception.ErrorCode;
 import com.example.backend.mapper.UserMapper;
-import com.example.backend.model.RoomStatistical;
-import com.example.backend.repository.RoleRepo;
 import com.example.backend.repository.UserRepo;
+import com.example.backend.service.auth.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +47,7 @@ public class UserService {
         user.setEmail(user.getEmail().toLowerCase());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         List<Role> roles = new ArrayList<>();
-        roles.add(roleService.getByName("USER"));
+        roles.add(roleService.getByName("CUSTOMER"));
         user.setRoles(new HashSet<>(roles));
         user = userRepo.save(user);
         return user;
@@ -94,6 +91,11 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepo.save(user);
         return "Đổi mật khẩu thành công";
+    }
+
+    public User getAdminOnline(){
+        // tạm fix cứng
+        return userRepo.findByEmail("admin@gmail.com");
     }
 
 
