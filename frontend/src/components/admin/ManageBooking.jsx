@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { fetchAllBooking, manageStateBooking } from '../../services/BookingAPI';
+import { fetchAllBooking, manageStateBooking } from '../../services/hotel/BookingAPI';
 import { Modal, Button } from 'react-bootstrap';
 import { BookingActionTranslation, BookingStatusTranslation } from '../../translations/BookingTranslations';
 

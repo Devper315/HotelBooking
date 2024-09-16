@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllHotel } from "../../../services/HotelAPI";
+import { fetchAllHotel } from "../../../services/hotel/HotelAPI";
 import HotelCard from "./HotelCard";
 
 const ManageHotel = () => {

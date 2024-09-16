@@ -37,5 +37,5 @@ firebase:
   hotelPath: "hotel/"
 
 frontend:
-  url: "https://b31f-42-114-185-98.ngrok-free.app/"
+  url: "http://localhost:3000"
 

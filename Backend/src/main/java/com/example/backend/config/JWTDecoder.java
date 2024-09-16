@@ -17,7 +17,7 @@ import javax.crypto.spec.SecretKeySpec;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CustomJWTDecoder implements JwtDecoder {
+public class JWTDecoder implements JwtDecoder {
 
     @Value("${jwt.signerKey}")
     String signerKey;

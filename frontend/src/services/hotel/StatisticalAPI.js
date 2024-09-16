@@ -1,9 +1,8 @@
 import axios from "axios";
 import {API_BASE_URL} from './RoomAPI.js'
-import { createConfig } from "./jwtHelper.js";
+import { createConfig } from "../helper/jwtHelper.js";
 
 export const fetchRoomStatistical = async () => {
-    
     try {
         const config = createConfig()
         const response = await axios.get(`${API_BASE_URL}/admin/room/statistical`, config);

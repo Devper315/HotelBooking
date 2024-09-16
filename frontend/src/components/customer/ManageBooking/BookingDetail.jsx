@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'; // Để lấy query parameters
-import { fetchBookingById, cancelBooking } from '../../../services/BookingAPI';
+import { fetchBookingById, cancelBooking } from '../../../services/hotel/BookingAPI';
 import { Button } from 'react-bootstrap';
 import { BookingStatusTranslation } from '../../../translations/BookingTranslations';
 import './../../../assets/styles/customer/BookingDetail.css'

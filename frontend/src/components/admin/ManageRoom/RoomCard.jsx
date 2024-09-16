@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { fetchImageURL } from '../../../services/RoomAPI';
+import { fetchImageURL } from '../../../services/hotel/RoomAPI';
 import './../../../assets/styles/admin/RoomCard.css';
 import { RoomStatusTranslations, RoomTypeTranslations } from '../../../translations/RoomTranslations';
 

@@ -1,3 +1,4 @@
+/* Cập nhật các thuộc tính chung cho header */
 header {
     background-color: #004d99;
     padding: 15px 0;
@@ -18,21 +19,30 @@ header {
 }
 
 .menu li {
-    margin: 0 20px;
     position: relative;
 }
 
+/* Định nghĩa cho các nút trong menu */
+.menu li button,
 .menu li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
+    background: none; /* Không có nền */
+    border: none;     /* Không có viền */
+    cursor: pointer;  /* Con trỏ khi hover */
+    padding: 10px 20px; /* Khoảng cách xung quanh chữ */
+    display: inline-block; /* Đảm bảo không chiếm toàn bộ chiều rộng */
 }
 
+/* Hiệu ứng khi hover trên nút */
+.menu li button:hover,
 .menu li a:hover {
-    color: #ffcc00;
+    color: #ffcc00; /* Màu chữ khi hover */
 }
 
+/* Định nghĩa cho menu dropdown hiện tại */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -71,6 +81,52 @@ header {
     background-color: #444;
 }
 
+/* Cập nhật cho danh sách khách hàng */
+.customer-list {
+    display: block; /* Đảm bảo danh sách là khối để cuộn */
+    position: absolute;
+    top: 100%; /* Đặt danh sách dưới nút */
+    left: 0;
+    background-color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    list-style: none;
+    padding: 10px 0;
+    width: 200px; /* Đặt chiều rộng cho danh sách */
+    max-height: 300px; /* Đặt chiều cao tối đa cho danh sách */
+    overflow-y: auto; /* Thêm thanh cuộn khi nội dung vượt quá chiều cao tối đa */
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.customer-menu {
+    position: relative;
+}
+
+.customer-menu:hover .customer-list {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.customer-list li {
+    margin: 0;
+}
+
+.customer-list li a {
+    padding: 10px 20px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.customer-list li a:hover {
+    background-color: #444;
+}
+
 .auth-buttons {
     display: flex;
     align-items: center;
@@ -82,9 +138,9 @@ header {
     text-decoration: none;
     font-weight: bold;
     margin-left: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
+    background: none; /* Không có nền */
+    border: none;     /* Không có viền */
+    cursor: pointer;  /* Con trỏ khi hover */
     font-size: 18px;
 }
 
@@ -94,7 +150,7 @@ header {
 
 .auth-buttons button:hover,
 .auth-buttons a:hover {
-    color: #ffcc00;
+    color: #ffcc00; /* Màu chữ khi hover */
 }
 
 .auth-buttons span {

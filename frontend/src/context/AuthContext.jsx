@@ -1,4 +1,3 @@
-// src/contexts/AuthContext.js
 import React, { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const loginSuccess = (token) => {
+        localStorage.setItem('token', token);
         getInfoFromToken(token)
     };
 
@@ -29,18 +29,23 @@ export const AuthProvider = ({ children }) => {
     };
 
     const getInfoFromToken = (token) => {
-        const payload = jwtDecode(token);
-        setIsLoggedIn(true);
-        let loginUserInfo = {
-            id: payload.customClaim.id,
-            fullName: payload.customClaim.name,
-            role: payload.customClaim.role[0].name,
+        const getConversations = async () => {
+            const payload = jwtDecode(token);
+            let loginUserInfo = {
+                id: payload.customClaim.id,
+                fullName: payload.customClaim.name,
+                role: payload.customClaim.role[0].name,
+                email: payload.sub,
+            }
+            console.log(loginUserInfo);
+            setUserInfo(loginUserInfo);
+            setIsLoggedIn(true);
         }
-        setUserInfo(loginUserInfo);
-        localStorage.setItem('token', token);
+        getConversations()
+        
     }
     let PROVIDER_VALUE = { 
-        isLoggedIn, userInfo, loginSuccess, logout 
+        isLoggedIn, userInfo, loginSuccess, logout, setUserInfo
     }
 
     return (

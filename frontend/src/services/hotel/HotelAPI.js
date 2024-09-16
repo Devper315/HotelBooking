@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "./RoomAPI";
-import { createConfig } from "./jwtHelper";
+import { createConfig } from "../helper/jwtHelper";
 
 export const fetchAllHotel = async () => {
     try{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './../../assets/styles/common/UserProfile.css'; // Import file CSS cho component
 import { fetchProfile, updateProfile } from '../../services/ProfileAPI';
-import { fetchImageURL, uploadImage } from '../../services/RoomAPI';
+import { fetchImageURL, uploadImage } from '../../services/hotel/RoomAPI';
 
 const UserProfile = () => {
     const [user, setUser] = useState({});
@@ -79,7 +79,6 @@ const UserProfile = () => {
         }
         const updatedUser = { ...editUser, avatarPath };
         await updateProfile(updatedUser);
-        console.log(updatedUser);
         setUser(updatedUser);
         setEditUser({});
         setIsEditing(false);

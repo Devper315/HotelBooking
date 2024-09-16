@@ -92,10 +92,8 @@ public class UserService {
         userRepo.save(user);
         return "Đổi mật khẩu thành công";
     }
-
-    public User getAdminOnline(){
-        // tạm fix cứng
-        return userRepo.findByEmail("admin@gmail.com");
+    public List<User> getAllCustomer(){
+        return userRepo.findByRoleName("CUSTOMER");
     }
 
 

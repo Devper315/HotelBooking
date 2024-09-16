@@ -1,9 +1,9 @@
 package com.example.backend.service.chat;
 
 import com.example.backend.dto.request.chat.MessageCreateRequest;
-import com.example.backend.dto.response.MessageResponse;
+import com.example.backend.dto.response.chat.MessageResponse;
 import com.example.backend.entity.chat.Conversation;
-import com.example.backend.entity.chat.Message;
+import com.example.backend.entity.chat.MessageCustom;
 import com.example.backend.entity.chat.MessageStatus;
 import com.example.backend.repository.chat.MessageRepo;
 import com.example.backend.service.UserService;
@@ -24,27 +24,24 @@ public class MessageService {
     MessageRepo messageRepo;
     ConversationService conversationService;
     UserService userService;
-    public Message createMessage(MessageCreateRequest request){
+    public MessageCustom createMessage(MessageCreateRequest request){
         Conversation conversation = conversationService.getById(request.getConversationId());
-        Message newMessage = new Message();
-        newMessage.setContent(request.getContent());
-        newMessage.setSender(userService.getCurrentUser());
-        newMessage.setStatus(MessageStatus.SENT);
+        MessageCustom newMessageCustom = new MessageCustom();
+        newMessageCustom.setContent(request.getContent());
+        newMessageCustom.setSender(userService.getByEmail(request.getSender()));
+        newMessageCustom.setStatus(MessageStatus.SENT);
         LocalDateTime currentTime = LocalDateTime.now();
-        newMessage.setTime(currentTime);
+        newMessageCustom.setTime(currentTime);
         conversation.setUpdateAt(currentTime);
-        newMessage.setConversation(conversation);
-        return messageRepo.save(newMessage);
+        newMessageCustom.setConversation(conversation);
+        return messageRepo.save(newMessageCustom);
     }
 
-    public List<MessageResponse> getByConversationId(Long conversationId){
+    public List<MessageCustom> getByConversationId(Long conversationId){
         Conversation conversation = conversationService.getById(conversationId);
         if (!conversation.containsUser(userService.getCurrentUser()))
             throw new RuntimeException("Id cuộc trò chuyện không hợp lệ");
         Sort sort = Sort.by("time");
-        List<Message> messageList = messageRepo.findByConversation(conversation, sort);
-        return messageList.stream()
-                .map(MessageResponse::new)
-                .collect(Collectors.toList());
+        return messageRepo.findByConversation(conversation, sort);
     }
 }

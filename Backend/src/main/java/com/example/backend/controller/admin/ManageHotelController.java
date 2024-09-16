@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/hotel/admin/hotel")
+@RequestMapping("/api/admin/hotel")
 public class ManageHotelController {
     @NonFinal
     @Value("${firebase.hotelPath}")

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { fetchImageURL } from '../../services/RoomAPI';
+import { fetchImageURL } from '../../services/hotel/RoomAPI';
 import BookingModal from './BookingModal'; // Import component mới
 import './../../assets/styles/customer/RoomCard.css';
 import { useNavigate } from 'react-router-dom';

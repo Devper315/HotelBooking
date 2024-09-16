@@ -26,7 +26,7 @@ public class Conversation {
     User user2;
 
     @Transient
-    User receiver;
+    User requestor;
 
     LocalDateTime createAt;
     LocalDateTime updateAt;

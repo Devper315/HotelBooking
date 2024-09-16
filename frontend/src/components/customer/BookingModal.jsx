@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Modal, Button, Spinner, Alert, Form } from 'react-bootstrap';
-import { createBooking } from '../../services/BookingAPI';
+import { createBooking } from '../../services/hotel/BookingAPI';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 

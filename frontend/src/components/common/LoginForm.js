@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { jwtDecode } from 'jwt-decode';
-import { API_BASE_URL } from '../../services/RoomAPI';
+import { API_BASE_URL } from '../../services/hotel/RoomAPI';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 

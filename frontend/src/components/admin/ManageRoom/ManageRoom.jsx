@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchRooms, uploadImage, updateRoom, createRoom, deleteRoom } from '../../../services/RoomAPI'
+import { fetchRooms, uploadImage, updateRoom, createRoom, deleteRoom } from '../../../services/hotel/RoomAPI'
 import RoomCard from './RoomCard'
 import AddRoomModal from './AddRoomModal'
 import DeleteConfirmationModal from './DeleteConfirmationModal'
@@ -59,8 +59,7 @@ const ManageRoom = () => {
             const newImagePath = editedRoom.imageFile ? await uploadImage(editedRoom, 'room') : editedRoom.imagePath
 
             await updateRoom(editedRoom)
-            setRooms(rooms.map(room => (room.id === editedRoom.id
-                ? { ...editedRoom, imagePath: newImagePath } : room)))
+            setRooms(rooms.map(room => (room.id === editedRoom.id ? { ...editedRoom, imagePath: newImagePath } : room)))
         }
         setEditingRoom(null)
         setEditedRoom(null)

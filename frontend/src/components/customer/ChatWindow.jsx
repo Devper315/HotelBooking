@@ -4,63 +4,70 @@ import iconSend from './../../assets/images/iconSend.png'
 import { AuthContext } from '../../context/AuthContext';
 import { MessageStatusTranslation } from '../../translations/MessageStatusTranslation';
 import { connectWebSocket, disconnectWebSocket, sendMessageWebSocket } from '../../services/WebSocket';
+import { fetchMessageByConversationId } from '../../services/chat/MessageAPI';
+import { fetchMyConversation } from '../../services/chat/ConversationAPI';
 
 
-const mockMessages = [
-    { userId: 1, content: 'Hi, how are you?', time: '10:00 AM' }, // userA
-    { userId: 1, content: 'I am good, thanks! How about you?', time: '10:01 AM' }, // userB
-    { userId: 1, content: 'I am doing well, just working on a project.', time: '10:02 AM' }, // userA
-    { userId: 2, content: 'That’s great! What kind of project?', time: '10:03 AM' }, // userB
-    { userId: 1, content: 'It’s a chat application.', time: '10:04 AM' }, // userA
-    { userId: 2, content: 'Sounds interesting!', time: '10:05 AM' }, // userB
-    { userId: 1, content: 'Yes, it is! What are you up to?', time: '10:06 31/05/2002' }, // userA
-    { userId: 2, content: 'Just relaxing. Let me know if you need any help.', time: '10:07 AM' }, // userB
-    { userId: 1, content: 'Thanks! I’ll keep that in mind.', time: '10:08 AM' }, // userA
-    { userId: 2, content: 'No problem. Have a great day!', time: '10:06 31/05/2002' }  // userB
-];
-
-
-const ChatWindow = ({ onClose }) => {
+const ChatWindow = ({ onClose, recipient }) => {
     const { userInfo } = useContext(AuthContext)
     const [message, setMessage] = useState('')
-    const [messageList, setMessageList] = useState(mockMessages)
-    const chatBodyRef  = useRef(null)
+    const [messageList, setMessageList] = useState([])
+    const chatBodyRef = useRef(null)
+    const [openingConversation, setOpeningConversation] = useState(null);
 
     useEffect(() => {
-        connectWebSocket((newMessage) => {
-            setMessageList((prevMessages) => [...prevMessages, newMessage]);
-        });
-
-        return () => {
-            disconnectWebSocket();
+        const getMessage = async () => {
+            const conversation = await fetchMyConversation(recipient.id)
+            const messageData = await fetchMessageByConversationId(conversation.id);
+            setOpeningConversation(conversation);
+            console.log(conversation);
+            setMessageList(messageData);
         };
-    }, []);
+    
+        getMessage()
+    }, [recipient.id]);
+
+    useEffect(() => {
+        const connectAndDisconnectWebSocket = () => {
+            connectWebSocket((newMessage) => {
+                setMessageList((prevMessages) => [...prevMessages, newMessage]);
+            }, userInfo.email);
+    
+            return () => {
+                disconnectWebSocket();
+            };
+        };
+        const cleanup = connectAndDisconnectWebSocket();
+        return cleanup;
+    }, [userInfo.email]);
 
     useEffect(() => {
         const chatBody = chatBodyRef.current
-        if (chatBody){
+        if (chatBody) {
             chatBody.scrollTop = chatBody.scrollHeight
         }
     }, [messageList])
 
     useEffect(() => {
         const chatBody = chatBodyRef.current
-        if (chatBody){
+        if (chatBody) {
             chatBody.scrollTop = chatBody.scrollHeight
         }
     }, [])
 
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) { // Gửi tin nhắn khi nhấn Enter, không nhấn Shift
-            e.preventDefault(); // Ngăn không cho xuống dòng
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             handleSend();
         }
     };
     const handleSend = () => {
         if (message) {
             const newMessage = {
-                userId: 2,
+                conversationId: openingConversation.id,
+                sender: openingConversation.sender,
+                recipient: openingConversation.recipient,
                 content: message,
                 status: 'sending'
             }
@@ -74,12 +81,12 @@ const ChatWindow = ({ onClose }) => {
     return (
         <div className="chat-window">
             <div className="chat-header">
-                <h>Chat với chúng tôi</h>
+                <h>{userInfo.role === "ADMIN" ? recipient.fullName : "Chat với chúng tôi"}</h>
                 <button className="close-button" onClick={onClose}>×</button>
             </div>
             <div className="chat-body" ref={chatBodyRef}>
                 {messageList.map((msg, index) => (
-                    <div className={`message ${msg.userId === 2 ? 'sent' : 'received'}`} key={index}>
+                    <div className={`message ${msg.sender === userInfo.email ? 'sent' : 'received'}`} key={index}>
                         <div className="message-content">
                             {msg.content}
                         </div>
@@ -94,9 +101,9 @@ const ChatWindow = ({ onClose }) => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Aa"
-                    className="chat-input" 
+                    className="chat-input"
                     rows="1"
-                    onKeyDown={handleKeyDown}/>
+                    onKeyDown={handleKeyDown} />
                 <button
                     className="send-button"
                     onClick={handleSend}>

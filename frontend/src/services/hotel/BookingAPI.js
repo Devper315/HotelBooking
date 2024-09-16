@@ -1,4 +1,4 @@
-import { createConfig } from './jwtHelper.js';
+import { createConfig } from '../helper/jwtHelper.js';
 import {API_BASE_URL} from './RoomAPI.js'
 import axios from 'axios';
 

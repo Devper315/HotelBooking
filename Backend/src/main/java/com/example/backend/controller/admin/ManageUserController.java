@@ -16,14 +16,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/hotel/admin/user")
+@RequestMapping("/api/admin/user")
 public class ManageUserController {
     UserService userService;
     UserMapper userMapper;
 
-    @GetMapping("/all")
-    public ApiResponse<List<User>> getAllUser(){
-        List<User> userList = userService.getAll();
+    @GetMapping("/customer")
+    public ApiResponse<List<User>> getAllCustomer(){
+        List<User> userList = userService.getAllCustomer();
         return ApiResponse.<List<User>>builder()
                 .result(userList)
                 .build();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RoomCard from './RoomCard';
-import { fetchRooms } from '../../services/RoomAPI';
+import { fetchRooms } from '../../services/hotel/RoomAPI';
 
 const RoomList = () => {
     const [rooms, setRooms] = useState([]);

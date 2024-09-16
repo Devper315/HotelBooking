@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchImageURL } from "../../../services/RoomAPI";
+import { fetchImageURL } from "../../../services/hotel/RoomAPI";
 
 const HotelCard = ({ hotel, editedHotel, isEditing }) => {
     const displayRoom = isEditing ? hotel : editedHotel

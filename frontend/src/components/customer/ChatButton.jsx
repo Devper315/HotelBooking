@@ -5,21 +5,26 @@ import { AuthContext } from '../../context/AuthContext';
 import ChatWindow from './ChatWindow';
 
 const ChatButton = () => {
-    const {userInfo} = useContext(AuthContext)
+    const { userInfo } = useContext(AuthContext)
     const [isChatOpen, setIsChatOpen] = useState(false)
     const toggleChat = () => {
         setIsChatOpen(true)
     }
+    const recipient = {
+        id: 7,
+        email: "admin@gmail.com"
+    }
 
     return (
         <div>
-        {/* {userInfo.role === 'CUSTOMER' &&  */}
-        {!isChatOpen && <div className='chat-button' onClick={toggleChat}
-             title='Chat với chúng tôi'>
-            <div className='tooltip'>Chat với chúng tôi</div>
-            <img src={chatIcon} alt='Chat'/>
-        </div>}
-        {isChatOpen && <ChatWindow onClose={() => setIsChatOpen(false)}/>}
+            {userInfo.role === 'CUSTOMER' && !isChatOpen && <div className='chat-button' onClick={toggleChat}
+                title='Chat với chúng tôi'>
+                <div className='tooltip'>Chat với chúng tôi</div>
+                <img src={chatIcon} alt='Chat' />
+            </div>}
+            {isChatOpen && <ChatWindow
+                onClose={() => setIsChatOpen(false)}
+                recipient={recipient}/>}
         </div>
     )
 }

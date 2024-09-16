@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../assets/styles/admin/AdminDashboard.css';
-import { fetchBookingStatistical, fetchRoomStatistical } from '../../services/StatisticalAPI';
+import { fetchBookingStatistical, fetchRoomStatistical } from '../../services/hotel/StatisticalAPI';
 
 
 

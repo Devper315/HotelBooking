@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { getStorage, getDownloadURL, ref } from 'firebase/storage';
-import { firebaseApp } from '../firebase';
-import { createConfig } from './jwtHelper';
+import { firebaseApp } from '../../firebase';
+import { createConfig } from '../helper/jwtHelper';
 
-export const API_BASE_URL = 'http://localhost:8080/api/hotel'
+export const API_BASE_URL = 'http://localhost:8080/api'
 
 export const fetchRooms = async () => {
 
@@ -15,7 +15,6 @@ export const fetchRooms = async () => {
                   }
             }
         );
-        console.log(response)
         let roomData = response.data.result;
         let roomList = roomData.map(room => ({
             id: room.id,
@@ -108,7 +107,6 @@ export const updateRoom = async (room) => {
             body, 
             config
         );
-        console.log('Sửa phòng thành công:', response.data);
         return response.data;
     } catch (error) {
         console.error('Lỗi sửa phòng:', error);

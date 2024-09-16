@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/hotel/admin/booking")
+@RequestMapping("/api/admin/booking")
 public class ManageBookingController {
 
     BookingService bookingService;
