@@ -17,4 +17,5 @@ public class MessageCreateRequest {
     String recipient;
     Long conversationId;
     String content;
+    String time;
 }

@@ -64,8 +64,8 @@ const AddRoomModal = ({ show, onHide, room, onFieldChange, onImageChange, onSave
                 )}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>Hủy</Button>
                 <Button variant="primary" onClick={onSaveClick}>Lưu</Button>
+                <Button variant="secondary" onClick={onHide}>Hủy</Button>
             </Modal.Footer>
         </Modal>
     );

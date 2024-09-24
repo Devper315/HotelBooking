@@ -3,6 +3,8 @@ package com.example.backend.config;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -30,6 +32,11 @@ import java.util.Map;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     JWTDecoder jwtDecoder;
+
+    @NonFinal
+    @Value("${frontend.url}")
+    String frontEndUrl;
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic", "/user", "/private");
@@ -38,7 +45,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/ws")
+                .setAllowedOrigins(frontEndUrl)
+                .withSockJS();
     }
 
     @Override
@@ -61,9 +70,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                         );
                         accessor.setUser(authentication);
                         SecurityContextHolder.getContext().setAuthentication(authentication);
-                        System.out.println("");
-                    }
-                    else
+                    } else
                         throw new RuntimeException("Chưa xác thực");
                 }
                 return message;

@@ -6,23 +6,22 @@ import { createConfig } from '../helper/jwtHelper';
 export const API_BASE_URL = 'http://localhost:8080/api'
 
 export const fetchRooms = async () => {
-
     try {
         const response = await axios.get(`${API_BASE_URL}/room/all`,
             {
                 headers: {
                     'ngrok-skip-browser-warning': 'true'
-                  }
+                }
             }
         );
         let roomData = response.data.result;
         let roomList = roomData.map(room => ({
             id: room.id,
             roomNumber: room.roomNumber,
-            type: room.type.name, 
-            price: room.price, 
+            type: room.type.name,
+            price: room.price,
             status: room.status,
-            imagePath: room.imagePath 
+            imagePath: room.imagePath
         }))
         return roomList;
     } catch (error) {
@@ -48,7 +47,7 @@ export const uploadImage = async (obj, type) => {
             url = `${API_BASE_URL}/admin/${type}/upload-image`
         if (type === 'profile')
             url = `${API_BASE_URL}/${type}/upload-image`
-        
+
         const response = await axios.post(url, formData, config);
         return response.data.result;
     } catch (error) {
@@ -60,14 +59,14 @@ export const uploadImage = async (obj, type) => {
 // Lấy url firebase của ảnh sau khi upload
 export const fetchImageURL = async (imagePath) => {
     try {
-      const storage = getStorage(firebaseApp);
-      const imageRef = ref(storage, imagePath);
-      const url = await getDownloadURL(imageRef);
-      return url
+        const storage = getStorage(firebaseApp);
+        const imageRef = ref(storage, imagePath);
+        const url = await getDownloadURL(imageRef);
+        return url
     } catch (error) {
-      console.error('Lỗi khi lấy token ảnh:', error);
+        console.error('Lỗi khi lấy token ảnh:', error);
     }
-  };
+};
 
 export const createRoom = async (room) => {
     const config = createConfig()
@@ -78,8 +77,8 @@ export const createRoom = async (room) => {
         status: room.status
     };
     try {
-        const response = await axios.post(`${API_BASE_URL}/admin/room`, 
-            body, 
+        const response = await axios.post(`${API_BASE_URL}/admin/room`,
+            body,
             config
         );
         const newRoom = response.data.result;
@@ -91,7 +90,7 @@ export const createRoom = async (room) => {
         console.error('Lỗi tạo phòng:', error);
     }
 };
-  
+
 export const updateRoom = async (room) => {
     const config = createConfig()
     config.params = {
@@ -103,8 +102,8 @@ export const updateRoom = async (room) => {
         status: room.status
     };
     try {
-        const response = await axios.put(`${API_BASE_URL}/admin/room`, 
-            body, 
+        const response = await axios.put(`${API_BASE_URL}/admin/room`,
+            body,
             config
         );
         return response.data;

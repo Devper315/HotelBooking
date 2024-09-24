@@ -64,6 +64,13 @@ const Header = () => {
               </li>
             </>
           )}
+          {userInfo.role === 'CUSTOMER' && (
+            <>
+              <li className="dropdown">
+                <Link to="customer/my-bookings">Xem phòng đã đặt</Link>
+              </li>
+            </>
+          )}
         </ul>
         <div className="auth-buttons">
           {isLoggedIn ? (

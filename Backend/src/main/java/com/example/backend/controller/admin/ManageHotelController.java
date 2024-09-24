@@ -1,5 +1,6 @@
 package com.example.backend.controller.admin;
 
+import com.example.backend.dto.request.hotel.HotelCreateRequest;
 import com.example.backend.dto.response.ApiResponse;
 import com.example.backend.entity.hotel.Hotel;
 import com.example.backend.service.hotel.HotelService;
@@ -38,6 +39,13 @@ public class ManageHotelController {
         Hotel hotel = hotelService.getById(id);
         return ApiResponse.<Hotel>builder()
                 .result(hotel)
+                .build();
+    }
+
+    @PostMapping()
+    public ApiResponse<Hotel> createHotel(@RequestBody HotelCreateRequest request){
+        return ApiResponse.<Hotel>builder()
+                .result(hotelService.createHotel(request))
                 .build();
     }
 

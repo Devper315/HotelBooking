@@ -41,15 +41,9 @@ const ManageRoom = () => {
     const handleFieldChange = (e) => {
         const { name, value } = e.target
         if (isAdding)
-            setNewRoom({
-                ...newRoom,
-                [name]: value,
-            })
+            setNewRoom({ ...newRoom, [name]: value })
         else
-            setEditedRoom({
-                ...editedRoom,
-                [name]: value,
-            })
+            setEditedRoom({ ...editedRoom, [name]: value })
     }
 
 

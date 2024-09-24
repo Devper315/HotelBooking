@@ -6,6 +6,7 @@ import { MessageStatusTranslation } from '../../translations/MessageStatusTransl
 import { connectWebSocket, disconnectWebSocket, sendMessageWebSocket } from '../../services/WebSocket';
 import { fetchMessageByConversationId } from '../../services/chat/MessageAPI';
 import { fetchMyConversation } from '../../services/chat/ConversationAPI';
+import { format } from 'date-fns';
 
 
 const ChatWindow = ({ onClose, recipient }) => {
@@ -69,7 +70,8 @@ const ChatWindow = ({ onClose, recipient }) => {
                 sender: openingConversation.sender,
                 recipient: openingConversation.recipient,
                 content: message,
-                status: 'sending'
+                status: 'sending',
+                time: format(new Date(), 'HH:mm dd/MM/yyyy')
             }
             sendMessageWebSocket(newMessage)
             setMessageList([...messageList, newMessage])

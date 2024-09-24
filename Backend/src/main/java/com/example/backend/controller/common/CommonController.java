@@ -4,15 +4,21 @@ import com.example.backend.dto.request.chat.ConversationCreateRequest;
 import com.example.backend.dto.request.chat.MessageCreateRequest;
 import com.example.backend.dto.request.user.UserCreateRequest;
 import com.example.backend.dto.response.ApiResponse;
+import com.example.backend.dto.response.address.DistrictResponse;
+import com.example.backend.dto.response.address.WardResponse;
 import com.example.backend.dto.response.chat.ConversationResponse;
 import com.example.backend.dto.response.chat.MessageResponse;
 import com.example.backend.dto.response.user.UserResponse;
+import com.example.backend.entity.address.City;
 import com.example.backend.entity.chat.Conversation;
 import com.example.backend.entity.chat.MessageCustom;
 import com.example.backend.entity.hotel.Room;
 import com.example.backend.entity.user.User;
 import com.example.backend.mapper.UserMapper;
 import com.example.backend.service.UserService;
+import com.example.backend.service.address.CityService;
+import com.example.backend.service.address.DistrictService;
+import com.example.backend.service.address.WardService;
 import com.example.backend.service.chat.ConversationService;
 import com.example.backend.service.chat.MessageService;
 import com.example.backend.service.hotel.RoomService;
@@ -35,6 +41,10 @@ public class CommonController {
     ConversationService conversationService;
     MessageService messageService;
 
+    CityService cityService;
+    DistrictService districtService;
+    WardService wardService;
+
 
     @GetMapping("/room/all")
     public ApiResponse<List<Room>> getAllRoom(
@@ -47,7 +57,7 @@ public class CommonController {
     }
 
     @PostMapping("/register")
-    public ApiResponse<UserResponse> signup(@RequestBody UserCreateRequest request){
+    public ApiResponse<UserResponse> signup(@RequestBody UserCreateRequest request) {
         User newUser = userService.createUser(request);
         UserResponse response = userMapper.toUserResponse(newUser);
         return ApiResponse.<UserResponse>builder()
@@ -56,7 +66,7 @@ public class CommonController {
     }
 
     @GetMapping("/chat/conversation")
-    public ApiResponse<ConversationResponse> getMyConversation(@RequestParam Long userId2){
+    public ApiResponse<ConversationResponse> getMyConversation(@RequestParam Long userId2) {
         ConversationResponse response = conversationService.getBetweenUsers(userId2);
         return ApiResponse.<ConversationResponse>builder()
                 .result(response)
@@ -85,6 +95,26 @@ public class CommonController {
                 .build();
     }
 
+    @GetMapping("/city")
+    public ApiResponse<List<City>> getCity() {
+        return ApiResponse.<List<City>>builder()
+                .result(cityService.getAll())
+                .build();
+    }
+
+    @GetMapping("/district")
+    public ApiResponse<List<DistrictResponse>> getDistrict(@RequestParam Long cityId) {
+        return ApiResponse.<List<DistrictResponse>>builder()
+                .result(districtService.getByCityId(cityId))
+                .build();
+    }
+
+    @GetMapping("/ward")
+    public ApiResponse<List<WardResponse>> getWard(@RequestParam Long districtId) {
+        return ApiResponse.<List<WardResponse>>builder()
+                .result(wardService.getByDistrictId(districtId))
+                .build();
+    }
 
 
 }

@@ -7,8 +7,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface BookingMapper {
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "room", ignore = true)
     Booking toBooking(BookingCreateRequest request);
 
 }

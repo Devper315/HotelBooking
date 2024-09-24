@@ -4,12 +4,12 @@ import { fetchImageURL } from "../../../services/hotel/RoomAPI";
 const HotelCard = ({ hotel, editedHotel, isEditing }) => {
     const displayRoom = isEditing ? hotel : editedHotel
     const [imageUrl, setImageUrl] = useState('')
-    useEffect = (() => {
+    useEffect(() => {
         const getImageUrl = async () => {
             const url = await fetchImageURL(hotel.imagePath)
             setImageUrl(url)
         }
-        getImageUrl()
+        // getImageUrl()
     }, [hotel])
 
     return (
@@ -18,8 +18,8 @@ const HotelCard = ({ hotel, editedHotel, isEditing }) => {
                 <p>{hotel.name}</p>
                 <p>Email: {hotel.email}</p>
                 <p>Phone: {hotel.phone}</p>
-                <p>Địa chỉ: {hotel.houseNumber}, {hotel.streetName}, {hotel.ward.name}, 
-                            {hotel.ward.district.name}, {hotel.ward.district.city.name}</p>
+                <p>Địa chỉ: {hotel.houseNumber}, {hotel.streetName}, {hotel.ward.name},
+                    {" " + hotel.ward.district.name}, {hotel.ward.district.city.name}</p>
             </div>
         </div>
     )
