@@ -1,6 +1,6 @@
 server:
   port: 8080
-
+# Author: Phan Van Thi
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/hotel
